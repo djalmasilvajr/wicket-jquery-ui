@@ -88,13 +88,13 @@ public abstract class InputDialog<T extends Serializable> extends AbstractFormDi
 	}
 	
 	@Override
-	protected List<String> getButtons()
+	protected List<DialogButton> getButtons()
 	{
 		return Arrays.asList(BTN_OK, BTN_CANCEL);
 	}
 	
 	@Override
-	protected String getSubmitButton()
+	protected DialogButton getSubmitButton()
 	{
 		return BTN_OK;
 	}

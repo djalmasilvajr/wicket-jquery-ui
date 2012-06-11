@@ -10,6 +10,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.model.util.ListModel;
 
+import com.googlecode.wicket.jquery.ui.dialog.DialogButton;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.samples.component.UserDialog;
@@ -58,7 +59,7 @@ public class UserDialogPage extends AbstractDialogPage
 			}
 
 			@Override
-			protected void onClose(AjaxRequestTarget target, String button)
+			protected void onClose(AjaxRequestTarget target, DialogButton button)
 			{
 				target.add(form);
 			}

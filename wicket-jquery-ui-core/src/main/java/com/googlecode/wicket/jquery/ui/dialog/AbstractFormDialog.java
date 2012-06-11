@@ -33,7 +33,7 @@ import org.apache.wicket.model.IModel;
 public abstract class AbstractFormDialog<T extends Serializable> extends AbstractDialog<T> // implements IFormSubmitter
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Constructor
 	 * @param id the markup id
@@ -85,7 +85,7 @@ public abstract class AbstractFormDialog<T extends Serializable> extends Abstrac
 	 * It should be in the list of buttons returned by {@link #getButtons()}
 	 * @return the submit button
 	 */
-	protected abstract String getSubmitButton();
+	protected abstract DialogButton getSubmitButton();
 
 	
 	/**
@@ -116,7 +116,7 @@ public abstract class AbstractFormDialog<T extends Serializable> extends Abstrac
 	 * @param button the dialog's button
 	 * @return the {@link Form} or <code>null</code>
 	 */
-	private Form<?> getForm(String button)
+	protected Form<?> getForm(DialogButton button)
 	{
 		if (button.equals(this.getSubmitButton()))
 		{
@@ -131,7 +131,7 @@ public abstract class AbstractFormDialog<T extends Serializable> extends Abstrac
 	 * Gets the FormButtonAjaxBehavior associated to the specified button.<br/>
 	 */
 	@Override
-	protected ButtonAjaxBehavior newButtonAjaxBehavior(String button)
+	protected ButtonAjaxBehavior newButtonAjaxBehavior(DialogButton button)
 	{
 		return new FormButtonAjaxBehavior(this, button, this.getForm(button));
 	}
@@ -201,7 +201,7 @@ public abstract class AbstractFormDialog<T extends Serializable> extends Abstrac
 	protected abstract void onSubmit(AjaxRequestTarget target);
 	
 	@Override
-	protected void onClose(AjaxRequestTarget target, String button)
+	protected void onClose(AjaxRequestTarget target, DialogButton button)
 	{
 		//not mandatory to override
 	}
@@ -214,7 +214,7 @@ public abstract class AbstractFormDialog<T extends Serializable> extends Abstrac
 
 		private final Form<?> form;
 
-		public FormButtonAjaxBehavior(AbstractFormDialog<T> dialog, String button, Form<?> form)
+		public FormButtonAjaxBehavior(AbstractFormDialog<T> dialog, DialogButton button, Form<?> form)
 		{
 			super(dialog, button);
 

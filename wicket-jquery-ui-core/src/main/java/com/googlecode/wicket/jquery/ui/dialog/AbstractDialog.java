@@ -43,11 +43,11 @@ public abstract class AbstractDialog<T extends Serializable> extends JQueryPanel
 	private static final long serialVersionUID = 1L;
 	private static final String METHOD = "dialog";
 	
-	protected static final String BTN_OK = "OK";
-	protected static final String BTN_NO = "No";
-	protected static final String BTN_YES = "Yes";
-	protected static final String BTN_CLOSE = "Close";
-	protected static final String BTN_CANCEL = "Cancel";
+	protected static final DialogButton BTN_OK = new DialogButton("OK");
+	protected static final DialogButton BTN_NO = new DialogButton("No");
+	protected static final DialogButton BTN_YES = new DialogButton("Yes");
+	protected static final DialogButton BTN_CLOSE = new DialogButton("Close");
+	protected static final DialogButton BTN_CANCEL = new DialogButton("Cancel");
 
 	/** Default width */
 	private static final int WIDTH = 450;
@@ -108,7 +108,7 @@ public abstract class AbstractDialog<T extends Serializable> extends JQueryPanel
 	{
 		super.onInitialize();
 
-		for (String button : this.getButtons())
+		for (DialogButton button : this.getButtons())
 		{
 			this.add(this.newButtonAjaxBehavior(button));
 		}
@@ -153,7 +153,7 @@ public abstract class AbstractDialog<T extends Serializable> extends JQueryPanel
 	 * @param target the {@link AjaxRequestTarget}
 	 * @param button the button that closed the dialog
 	 */
-	protected abstract void onClose(AjaxRequestTarget target, String button);
+	protected abstract void onClose(AjaxRequestTarget target, DialogButton button);
 
 	
 	// Properties //
@@ -161,7 +161,7 @@ public abstract class AbstractDialog<T extends Serializable> extends JQueryPanel
 	 * Gets the dialog's buttons
 	 * @return {@link #BTN_OK} by default
 	 */
-	protected List<String> getButtons()
+	protected List<DialogButton> getButtons()
 	{
 		return Arrays.asList(BTN_OK);
 	}
@@ -243,17 +243,23 @@ public abstract class AbstractDialog<T extends Serializable> extends JQueryPanel
 				this.setOption("width", AbstractDialog.this.getWidth());
 
 				// buttons events //
-				StringBuffer buttons = new StringBuffer("{ ");
+				StringBuffer buttons = new StringBuffer("[ ");
 				
 				int index = 0;
 				for(ButtonAjaxBehavior behavior : AbstractDialog.this.getBehaviors(ButtonAjaxBehavior.class))
 				{
+					DialogButton button = behavior.getButton();
+
 					if (index++ > 0) { buttons.append(", "); }
-					buttons.append("'").append(behavior.getButton()).append("': ");
-					buttons.append("function() { ").append(behavior.getCallbackScript()).append(" }");
+					buttons.append("{");
+					buttons.append("'id': '").append(button.getMarkupId()).append("', ");
+					buttons.append("'text': '").append(button.getText()).append("', ");
+					if (!button.isEnabled()) { buttons.append("'disabled': true, "); }
+					buttons.append("'click': function() { ").append(behavior.getCallbackScript()).append(" }");
+					buttons.append("}");
 				}
 
-				buttons.append(" }"); 
+				buttons.append(" ]"); 
 				
 				this.setOption("buttons", buttons);
 			}
@@ -266,7 +272,7 @@ public abstract class AbstractDialog<T extends Serializable> extends JQueryPanel
 	 *  
 	 * @param button the button that is passed to the behavior so it can be retrieved via the {@link DialogEvent}
 	 */
-	protected ButtonAjaxBehavior newButtonAjaxBehavior(String button)
+	protected ButtonAjaxBehavior newButtonAjaxBehavior(DialogButton button)
 	{
 		return new ButtonAjaxBehavior(this, button);
 	}
@@ -292,17 +298,17 @@ public abstract class AbstractDialog<T extends Serializable> extends JQueryPanel
 	 * It triggers the  {@link #onClose(AjaxRequestTarget, String)} event
 	 * @param target the {@link AjaxRequestTarget}
 	 */
-	public final void close(AjaxRequestTarget target, String button)
+	public final void close(AjaxRequestTarget target, DialogButton button)
 	{
 		if (this.widgetBehavior != null)
 		{
 			target.appendJavaScript(this.widgetBehavior.$("'close'"));
 		}
-		
+
 		this.onClose(target, button);
 	}
 	
-	
+
 	// Ajax behavior //
 	/**
 	 * Provides the {@link JQueryAjaxBehavior} being called by the button(s).
@@ -314,16 +320,16 @@ public abstract class AbstractDialog<T extends Serializable> extends JQueryPanel
 	{
 		private static final long serialVersionUID = 1L;
 
-		private final String button;
+		private final DialogButton button;
 
-		public ButtonAjaxBehavior(AbstractDialog<T> dialog, String button)
+		public ButtonAjaxBehavior(AbstractDialog<T> dialog, DialogButton button)
 		{
 			super(dialog);
 
 			this.button = button;
 		}
-		
-		public String getButton()
+
+		public DialogButton getButton()
 		{
 			return this.button;
 		}

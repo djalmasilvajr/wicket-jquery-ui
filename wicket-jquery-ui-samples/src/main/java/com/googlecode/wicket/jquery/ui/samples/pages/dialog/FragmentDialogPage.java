@@ -6,6 +6,7 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.model.Model;
 
+import com.googlecode.wicket.jquery.ui.dialog.DialogButton;
 import com.googlecode.wicket.jquery.ui.dialog.FragmentDialog;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
@@ -40,7 +41,7 @@ public class FragmentDialogPage extends AbstractDialogPage
 			}
 			
 			@Override
-			protected void onClose(AjaxRequestTarget target, String button)
+			protected void onClose(AjaxRequestTarget target, DialogButton button)
 			{
 				this.info(button + " has been clicked");
 				

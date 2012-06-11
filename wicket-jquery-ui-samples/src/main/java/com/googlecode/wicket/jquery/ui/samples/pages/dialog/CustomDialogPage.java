@@ -5,6 +5,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 
+import com.googlecode.wicket.jquery.ui.dialog.DialogButton;
 import com.googlecode.wicket.jquery.ui.form.button.AjaxButton;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.samples.component.SimpleDialog;
@@ -33,7 +34,7 @@ public class CustomDialogPage extends AbstractDialogPage
 			private static final long serialVersionUID = 1L;
 			
 			@Override
-			protected void onClose(AjaxRequestTarget target, String button)
+			protected void onClose(AjaxRequestTarget target, DialogButton button)
 			{
 				this.info(button + " has been clicked");
 				

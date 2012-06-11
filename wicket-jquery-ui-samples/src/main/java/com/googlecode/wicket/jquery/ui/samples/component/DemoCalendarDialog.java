@@ -16,6 +16,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import com.googlecode.wicket.jquery.ui.dialog.AbstractFormDialog;
+import com.googlecode.wicket.jquery.ui.dialog.DialogButton;
 import com.googlecode.wicket.jquery.ui.form.RadioChoice;
 import com.googlecode.wicket.jquery.ui.kendo.datetime.DateTimePicker;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
@@ -25,7 +26,7 @@ import com.googlecode.wicket.jquery.ui.samples.data.DemoCalendarEvent.Category;
 public abstract class DemoCalendarDialog extends AbstractFormDialog<DemoCalendarEvent>
 {
 	private static final long serialVersionUID = 1L;
-	protected static final String BTN_SUBMIT = "Save";
+	protected static final DialogButton BTN_SUBMIT = new DialogButton("Save");
 	
 	static IModel<DemoCalendarEvent> emptyModel()
 	{
@@ -64,13 +65,13 @@ public abstract class DemoCalendarDialog extends AbstractFormDialog<DemoCalendar
 
 	// AbstractFormDialog //
 	@Override
-	protected List<String> getButtons()
+	protected List<DialogButton> getButtons()
 	{
 		return Arrays.asList(BTN_SUBMIT, BTN_CANCEL);
 	}
 
 	@Override
-	protected String getSubmitButton()
+	protected DialogButton getSubmitButton()
 	{
 		return BTN_SUBMIT;
 	}

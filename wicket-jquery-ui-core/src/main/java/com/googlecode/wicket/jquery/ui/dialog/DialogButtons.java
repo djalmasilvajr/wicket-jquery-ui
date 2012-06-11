@@ -31,14 +31,14 @@ public enum DialogButtons
 	YES_NO(AbstractDialog.BTN_YES, AbstractDialog.BTN_NO),
 	YES_NO_CANCEL(AbstractDialog.BTN_YES, AbstractDialog.BTN_NO, AbstractDialog.BTN_CANCEL);
 
-	private final String[] buttons;
+	private final DialogButton[] buttons;
 
-	private DialogButtons(String... buttons)
+	private DialogButtons(DialogButton... buttons)
 	{
 		this.buttons = buttons;
 	}
 
-	public List<String> toList()
+	public List<DialogButton> toList()
 	{
 		return Arrays.asList(this.buttons);
 	}

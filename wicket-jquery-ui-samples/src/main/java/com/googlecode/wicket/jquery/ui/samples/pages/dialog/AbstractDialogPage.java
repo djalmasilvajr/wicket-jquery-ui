@@ -24,7 +24,9 @@ abstract class AbstractDialogPage extends SamplePage
 
 				new DemoLink(InputDialogPage.class, "Input Dialog"),
 				new DemoLink(FormDialogPage.class, "Form Dialog (Slider sample)"),
-				new DemoLink(UserDialogPage.class, "<b>Demo:</b> User Accounts")
+				new DemoLink(UserDialogPage.class, "<b>Demo:</b> User Accounts"),
+				
+				new DemoLink(WizardDialogPage.class, "Wizard, simple usage")
 			);
 	}
 }

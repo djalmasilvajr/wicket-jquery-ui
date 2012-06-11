@@ -12,6 +12,7 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import com.googlecode.wicket.jquery.ui.dialog.AbstractFormDialog;
+import com.googlecode.wicket.jquery.ui.dialog.DialogButton;
 import com.googlecode.wicket.jquery.ui.form.RadioChoice;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.samples.component.UserDialog.User;
@@ -19,7 +20,7 @@ import com.googlecode.wicket.jquery.ui.samples.component.UserDialog.User;
 public abstract class UserDialog extends AbstractFormDialog<User>
 {
 	private static final long serialVersionUID = 1L;
-	protected static final String BTN_SUBMIT = "Save";
+	protected static final DialogButton BTN_SUBMIT = new DialogButton("Save");
 	
 	private Form<?> form;
 	private FeedbackPanel feedback;
@@ -43,13 +44,13 @@ public abstract class UserDialog extends AbstractFormDialog<User>
 
 	// AbstractFormDialog //
 	@Override
-	protected List<String> getButtons()
+	protected List<DialogButton> getButtons()
 	{
 		return Arrays.asList(BTN_SUBMIT, BTN_CANCEL);
 	}
 
 	@Override
-	protected String getSubmitButton()
+	protected DialogButton getSubmitButton()
 	{
 		return BTN_SUBMIT;
 	}
